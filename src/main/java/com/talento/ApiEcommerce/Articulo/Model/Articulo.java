@@ -1,5 +1,6 @@
 package com.talento.ApiEcommerce.Articulo.Model;
 
+import com.talento.ApiEcommerce.Category.Model.Category;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -21,6 +22,14 @@ public class Articulo {
 
     @ElementCollection
     private List<String> imagesUrl;
+
+    @ManyToMany
+    @JoinTable(
+            name="articulo_category",
+            joinColumns = @JoinColumn(name="articulo_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
 
     public Articulo() {
     }
