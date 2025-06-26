@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*") // Permite solicitudes desde cualquier origen (CORS)
 @RestController
 @RequestMapping("/api/articulos")
 public class ArticuloController {
