@@ -11,5 +11,5 @@ public interface ArticuloService {
     Articulo save(Articulo articulo);
     Articulo update(Long id, Articulo articulo);
     void delete(Long id);
-
+    Articulo saveWithCategory(Articulo articulo);
 }

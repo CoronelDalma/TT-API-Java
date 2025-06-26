@@ -81,4 +81,12 @@ public class Articulo {
     public void setImagesUrl(List<String> imagesUrl) {
         this.imagesUrl = imagesUrl;
     }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 }

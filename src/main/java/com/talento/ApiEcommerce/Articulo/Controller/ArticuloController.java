@@ -42,8 +42,9 @@ public class ArticuloController {
     }
 
     @PostMapping
-    public Articulo create(@RequestBody Articulo articulo) {
-        return service.save(articulo);
+    public ResponseEntity<Articulo> create(@RequestBody Articulo articulo) {
+        Articulo saved = service.saveWithCategory(articulo);
+        return ResponseEntity.ok(saved);
     }
 
     @PutMapping("/{id}")
