@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticuloServiceImpl implements ArticuloService{
@@ -36,7 +37,7 @@ public class ArticuloServiceImpl implements ArticuloService{
     public Articulo save(Articulo articulo) {
         List<String> images = articulo.getImagesUrl();
         if (images == null || images.isEmpty()) {
-            articulo.setImagesUrl(List.of("https://via.placeholder.com/300x300?text=Sin+imagen"));
+            articulo.setImagesUrl(List.of("https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/1.png"));
         }
         return repository.save(articulo);
     }
@@ -58,7 +59,7 @@ public class ArticuloServiceImpl implements ArticuloService{
         List<Category> categories = articulo.getCategories().stream()
                 .map(cat -> categoryRepository.findByName(cat.getName())
                         .orElseGet(() -> categoryRepository.save(new Category(cat.getName()))))
-                .toList();
+                .collect(Collectors.toList());
 
         articulo.setCategories(categories);
         return this.save(articulo);

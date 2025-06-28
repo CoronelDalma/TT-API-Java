@@ -50,14 +50,17 @@ public class ArticuloController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Articulo> update(@PathVariable Long id, @RequestBody Articulo newArt) {
+        Optional<Articulo> art = service.getArticuloById(id);
         return service.getArticuloById(id)
-                .map(articulo1 -> {
-                    articulo1.setName(newArt.getName());
-                    articulo1.setDescription(newArt.getDescription());
-                    articulo1.setPrice(newArt.getPrice());
-                    articulo1.setImagesUrl(newArt.getImagesUrl());
-                    articulo1.setStock(newArt.getStock());
-                    return ResponseEntity.ok(service.save(articulo1));
+                .map(articulo -> {
+                    articulo.setName(newArt.getName());
+                    articulo.setDescription(newArt.getDescription());
+                    articulo.setPrice(newArt.getPrice());
+                    articulo.setImagesUrl(newArt.getImagesUrl());
+                    articulo.setStock(newArt.getStock());
+                    articulo.setCategories(newArt.getCategories());
+                    return ResponseEntity.ok(service.saveWithCategory(articulo));
+
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

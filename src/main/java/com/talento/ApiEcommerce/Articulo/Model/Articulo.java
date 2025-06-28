@@ -34,6 +34,15 @@ public class Articulo {
     public Articulo() {
     }
 
+    public Articulo(String name, String description, BigDecimal price, Integer stock, List<String> imagesUrl, List<Category> categories) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.imagesUrl = imagesUrl;
+        this.categories = categories;
+    }
+
     public Long getId() {
         return id;
     }
@@ -83,7 +92,7 @@ public class Articulo {
     }
 
     public List<Category> getCategories() {
-        return categories;
+        return this.categories;
     }
 
     public void setCategories(List<Category> categories) {
