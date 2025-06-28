@@ -32,6 +32,11 @@ public class ArticuloController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/item/{text}")
+    public List<Articulo> searchByText(@PathVariable String text) {
+        return service.findByNameContaing(text);
+    }
+
     @PostMapping("/{id}/images")
     public ResponseEntity<Articulo> addImages(@PathVariable Long id, @RequestBody String url) {
         Optional<Articulo> articulo = service.getArticuloById(id);

@@ -64,4 +64,9 @@ public class ArticuloServiceImpl implements ArticuloService{
         articulo.setCategories(categories);
         return this.save(articulo);
     }
+
+    @Override
+    public List<Articulo> findByNameContaing(String text) {
+        return repository.findByNameContaining(text);
+    }
 }
