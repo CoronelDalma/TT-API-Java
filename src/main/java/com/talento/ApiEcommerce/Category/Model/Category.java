@@ -11,11 +11,14 @@ public class Category {
     @Column(unique = true)
     private String name;
 
+    private String icon; // https://fontawesome.com/icons
+
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, String icon) {
         this.name = name;
+        this.icon = icon;
     }
 
     public Long getId() {
@@ -32,5 +35,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

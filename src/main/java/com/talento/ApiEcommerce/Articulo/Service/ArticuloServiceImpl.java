@@ -58,7 +58,7 @@ public class ArticuloServiceImpl implements ArticuloService{
     public Articulo saveWithCategory(Articulo articulo) {
         List<Category> categories = articulo.getCategories().stream()
                 .map(cat -> categoryRepository.findByName(cat.getName())
-                        .orElseGet(() -> categoryRepository.save(new Category(cat.getName()))))
+                        .orElseGet(() -> categoryRepository.save(new Category(cat.getName(), cat.getIcon()))))
                 .collect(Collectors.toList());
 
         articulo.setCategories(categories);
