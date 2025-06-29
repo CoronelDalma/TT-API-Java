@@ -12,5 +12,7 @@ public interface ArticuloService {
     Articulo update(Long id, Articulo articulo);
     void delete(Long id);
     Articulo saveWithCategory(Articulo articulo);
-    List<Articulo> findByNameContaing(String text);
+    List<Articulo> findByNameContainig(String text);
+    List<Articulo> getByCategoryName(String categoryName);
+    List<Articulo> getByCategoryId(Long idCategory);
 }

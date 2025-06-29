@@ -66,7 +66,17 @@ public class ArticuloServiceImpl implements ArticuloService{
     }
 
     @Override
-    public List<Articulo> findByNameContaing(String text) {
+    public List<Articulo> findByNameContainig(String text) {
         return repository.findByNameContaining(text);
+    }
+
+    @Override
+    public List<Articulo> getByCategoryName(String categoryName) {
+        return repository.findByCategoriesNameIgnoreCase(categoryName);
+    }
+
+    @Override
+    public List<Articulo> getByCategoryId(Long idCategory) {
+        return repository.findByCategoriesId(idCategory);
     }
 }

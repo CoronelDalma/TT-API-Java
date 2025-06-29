@@ -34,7 +34,12 @@ public class ArticuloController {
 
     @GetMapping("/item/{text}")
     public List<Articulo> searchByText(@PathVariable String text) {
-        return service.findByNameContaing(text);
+        return service.findByNameContainig(text);
+    }
+
+    @GetMapping("/category/{categoryName}")
+    public List<Articulo> getAllByCategoryName(@PathVariable String categoryName) {
+        return service.getByCategoryName(categoryName);
     }
 
     @PostMapping("/{id}/images")

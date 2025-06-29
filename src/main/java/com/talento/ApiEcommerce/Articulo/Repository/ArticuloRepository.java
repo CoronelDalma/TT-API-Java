@@ -15,6 +15,9 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Long> {
     // (LIKE '%texto%')
     List<Articulo> findByNameContaining(String texto);
 
+    List<Articulo> findByCategoriesNameIgnoreCase(String nameCategory);
+    List<Articulo> findByCategoriesId(Long idCategory);
+
     List<Articulo> findByPriceGreaterThan(Double price);
 
     List<Articulo> findByPriceBetween(Double min, Double max);
