@@ -8,15 +8,17 @@ public class Address {
     private String city;
     private String province;
     private String country;
+    private String zipCode;
 
     public Address() {
     }
 
-    public Address(String street, String city, String province, String country) {
+    public Address(String street, String city, String province, String country, String zipCode) {
         this.street = street;
         this.city = city;
         this.province = province;
         this.country = country;
+        this.zipCode = zipCode;
     }
 
     public String getStreet() {
@@ -49,5 +51,13 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 }

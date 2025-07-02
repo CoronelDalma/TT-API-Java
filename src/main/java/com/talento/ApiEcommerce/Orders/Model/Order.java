@@ -1,10 +1,12 @@
 package com.talento.ApiEcommerce.Orders.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.talento.ApiEcommerce.Address.Model.Address;
-import com.talento.ApiEcommerce.Articulo.Model.Articulo;
 import com.talento.ApiEcommerce.Customer.Model.Customer;
+import com.talento.ApiEcommerce.OrderItem.Model.OrderItem;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +17,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private List<Articulo> items;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<OrderItem> items = new ArrayList<>();
     private Date creationDate;
     private Date completionDate;
 
@@ -32,7 +36,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(List<Articulo> items, Date creationDate, Date completionDate, OrderStatus status, Customer customer, Address deliveryAddress) {
+    public Order(List<OrderItem> items, Date creationDate, Date completionDate, OrderStatus status, Customer customer, Address deliveryAddress) {
         this.items = items;
         this.creationDate = creationDate;
         this.completionDate = completionDate;
@@ -49,11 +53,11 @@ public class Order {
         this.id = id;
     }
 
-    public List<Articulo> getItems() {
+    public List<OrderItem> getItems() {
         return items;
     }
 
-    public void setItems(List<Articulo> items) {
+    public void setItems(List<OrderItem> items) {
         this.items = items;
     }
 
