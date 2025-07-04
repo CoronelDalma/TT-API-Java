@@ -3,6 +3,7 @@ package com.talento.ApiEcommerce.Orders.Controller;
 import com.talento.ApiEcommerce.OrderItem.Model.OrderItem;
 import com.talento.ApiEcommerce.Orders.Model.Order;
 import com.talento.ApiEcommerce.Orders.Service.OrderService;
+import com.talento.ApiEcommerce.Orders.Service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,10 +49,13 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}/items/{itemId}")
-    public ResponseEntity<OrderItem> updateItemQty(@PathVariable Long orderId, @PathVariable Long itemId, @RequestBody int newQty) {
-        return service.updateQty(orderId, itemId, newQty)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Void> updateItemQty(@PathVariable Long orderId, @PathVariable Long itemId, @RequestBody int newQty) {
+        OrderServiceImpl.UpdateResult result = service.updateQty(orderId, itemId, newQty);
+        return switch (result) {
+            case UPDATED -> ResponseEntity.ok().build();
+            case DELETED -> ResponseEntity.noContent().build();
+            case NOT_FOUND -> ResponseEntity.notFound().build();
+        };
     }
 
     @PostMapping("/{orderId}/items/{articuloId}")

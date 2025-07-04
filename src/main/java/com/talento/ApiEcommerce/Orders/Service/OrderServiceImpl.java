@@ -40,9 +40,9 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order save(Order order) {
         // todo validaciones:
-        if (order.getItems() == null || order.getItems().isEmpty()) {
+        /*if (order.getItems() == null || order.getItems().isEmpty()) {
             return order;
-        }
+        }*/
         order.getItems().forEach(item -> {
             item.setOrder(order);
             Long itemId = item.getArticulo().getId();
@@ -63,22 +63,28 @@ public class OrderServiceImpl implements OrderService{
         repository.deleteById(id);
     }
 
+    public enum UpdateResult {
+        UPDATED,
+        DELETED,
+        NOT_FOUND
+    }
+
     @Override
-    public Optional<OrderItem> updateQty(Long orderId, Long itemId, int newQty) {
+    public UpdateResult updateQty(Long orderId, Long itemId, int newQty) {
         Optional<OrderItem> itemOpt = orderItemRepository.findByOrderIdAndArticuloId(orderId, itemId);
 
-        if (itemOpt.isEmpty()) return Optional.empty();
+        if (itemOpt.isEmpty()) return UpdateResult.NOT_FOUND;
 
         OrderItem item = itemOpt.get();
         int stock = item.getArticulo().getStock();
 
         if (newQty <= 0) {
             orderItemRepository.delete(item);
-            return Optional.empty();
+            return UpdateResult.DELETED;
         }
         item.setQty(Math.min(newQty, stock));
-
-        return Optional.of(orderItemRepository.save(item));
+        orderItemRepository.save(item);
+        return UpdateResult.UPDATED;
     }
 
     @Override

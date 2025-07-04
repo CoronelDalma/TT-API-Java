@@ -11,6 +11,6 @@ public interface OrderService {
     Optional<Order> getOrderById(Long id);
     Order save(Order order);
     void delete(Long id);
-    Optional<OrderItem> updateQty(Long orderId, Long itemId, int qty);
+    OrderServiceImpl.UpdateResult updateQty(Long orderId, Long itemId, int qty);
     Optional<OrderItem> addItemToOrder(Long orderId, Long itemId);
 }
