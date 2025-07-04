@@ -1,5 +1,6 @@
 package com.talento.ApiEcommerce.Orders.Controller;
 
+import com.talento.ApiEcommerce.OrderItem.Model.OrderItem;
 import com.talento.ApiEcommerce.Orders.Model.Order;
 import com.talento.ApiEcommerce.Orders.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,6 +45,22 @@ public class OrderController {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @PutMapping("/{orderId}/items/{itemId}")
+    public ResponseEntity<OrderItem> updateItemQty(@PathVariable Long orderId, @PathVariable Long itemId, @RequestBody int newQty) {
+        return service.updateQty(orderId, itemId, newQty)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{orderId}/items/{articuloId}")
+    public ResponseEntity<OrderItem> addItem(
+            @PathVariable Long orderId,
+            @PathVariable Long articuloId) {
+        return service.addItemToOrder(orderId, articuloId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
