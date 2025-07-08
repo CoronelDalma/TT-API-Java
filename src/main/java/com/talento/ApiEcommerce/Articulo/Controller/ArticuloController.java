@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,7 @@ public class ArticuloController {
         Optional<Articulo> articulo = service.getArticuloById(id);
         if (articulo.isEmpty()) return ResponseEntity.notFound().build();
 
+        // Todo crear DTO para extraer la url de la imagen
         Articulo updatedArticulo = articulo.get();
         updatedArticulo.getImagesUrl().add(url);
         return ResponseEntity.ok(service.save(updatedArticulo));
@@ -68,7 +70,7 @@ public class ArticuloController {
                     articulo.setPrice(newArt.getPrice());
                     articulo.setImagesUrl(newArt.getImagesUrl());
                     articulo.setStock(newArt.getStock());
-                    articulo.setCategories(newArt.getCategories());
+                    articulo.setCategories(newArt.getCategories() != null ? newArt.getCategories() : new ArrayList<>());
                     return ResponseEntity.ok(service.saveWithCategory(articulo));
 
                 })
